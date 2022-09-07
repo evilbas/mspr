@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="mspr" schema="mspr" type="MySQL - 5.7.39">
+   <tables>
+      <table catalog="mspr" name="client" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT" typeCode="4">
+            <child catalog="mspr" column="id_client" foreignKey="fk_client" implied="false" onDeleteCascade="false" table="reservation"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="firstname" nullable="false" remarks="" size="70" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="lastname" nullable="false" remarks="" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="password" nullable="false" remarks="" size="200" type="VARCHAR" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="mspr" name="parkings" numRows="161" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT" typeCode="4">
+            <child catalog="mspr" column="id_park" foreignKey="fk_parking" implied="false" onDeleteCascade="false" table="reservation"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="nom" nullable="true" remarks="" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="place_libre" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="place_total" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="prix" nullable="true" remarks="" size="65535" type="TEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="webhook" nullable="true" remarks="" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="longitude" nullable="true" remarks="" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="latitude" nullable="true" remarks="" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="siret" nullable="true" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="mspr" name="reservation" numRows="2" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id_res" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="1" name="date_res" nullable="false" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="id_park" nullable="false" remarks="" size="10" type="INT" typeCode="4">
+            <parent catalog="mspr" column="id" foreignKey="fk_parking" implied="false" onDeleteCascade="false" table="parkings"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="id_client" nullable="false" remarks="" size="10" type="INT" typeCode="4">
+            <parent catalog="mspr" column="id" foreignKey="fk_client" implied="false" onDeleteCascade="false" table="client"/>
+         </column>
+         <primaryKey column="id_res" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id_res"/>
+         </index>
+         <index name="fk_client" unique="false">
+            <column ascending="true" name="id_client"/>
+         </index>
+         <index name="fk_parking" unique="false">
+            <column ascending="true" name="id_park"/>
+         </index>
+         <index name="un_res" unique="true">
+            <column ascending="true" name="date_res"/>
+            <column ascending="true" name="id_park"/>
+            <column ascending="true" name="id_client"/>
+         </index>
+      </table>
+   </tables>
+</database>
